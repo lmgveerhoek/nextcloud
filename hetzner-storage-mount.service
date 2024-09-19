@@ -1,0 +1,13 @@
+[Unit]
+Description=Mount Hetzner Storage Box
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/sshfs -o allow_other,IdentityFile=/path/to/your/ssh/key username@your_storage_box.your-storagebox.de:/home /mnt/hetzner_storage
+ExecStop=/bin/fusermount -u /mnt/hetzner_storage
+
+[Install]
+WantedBy=multi-user.target
